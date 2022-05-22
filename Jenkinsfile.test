@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage ('Run UI test(s)') {
+            steps {
+                sh 'sudo flutter drive --driver=test_driver/integration_test.dart  --target=integration_test/web_test.dart -d web-server'
+            }
+        }
+
         stage('Build image(s)') {
             steps {
                 sh 'docker compose --env-file test.env build'
