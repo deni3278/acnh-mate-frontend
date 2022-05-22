@@ -2,21 +2,33 @@ pipeline {
     agent any
 
     stages {
+        stage('Build image(s)') {
+            steps {
+                sh 'docker compose --env-file test.env build'
+            }
+        }
+        
         stage('Stop and remove old container(s)') {
             steps {
+                script {
+                    try {
+                        sh 'docker compose -p test-frontend --env-file test.env down'
+                    } catch (err) {}
+                }
                 echo 'Stopping and removing...'
             }
         }
 
         stage('Create and start new container(s)') {
             steps {
-                echo 'Creating and starting...'
+                sh 'docker compose -p test-frontend --env-file test.env up -d'
+                sh 'docker ps'
             }
         }
 
         stage('Push image(s) to registry') {
             steps {
-                echo 'Pushing...'
+                sh 'docker compose --env-file test.env push'
             }
         }
 
