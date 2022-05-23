@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWidget(
+      key: Key("ScaffoldWidgetKey"),
       pageTitle: "Home Page",
       body: Column(
         children: [
@@ -45,8 +46,8 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 const ListTile(
-                  title: Text("Fossils"),
-                  subtitle: Text("Collect fossils everyday"),
+                  title: Text("Villagers"),
+                  subtitle: Text("Talk to your villagers everyday"),
                 ),
                 CircleButtonBarWidget(
                     iconImage: "fox.png",
